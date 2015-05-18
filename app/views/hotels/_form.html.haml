@@ -1,0 +1,14 @@
+#form-horizontal
+  .col-sm-3
+    = simple_form_for [current_user, @hotel], defaults: {input_html: {class: 'form-control'}} do |f|
+      - if @hotel.errors.any?
+        #error_explanation
+          %h2= "#{pluralize(@hotel.errors.count, "error")} prohibited this hotel from being saved:"
+          %ul
+            - @hotel.errors.full_messages.each do |msg|
+              %li= msg
+      = f.input :title, as: :string
+      = f.input :room_description, required: false
+      = f.input :room_price, as: :decimal
+      = f.input :breakfast, as: :boolean, boolean_style: :inline, required: false
+      = f.button :submit
