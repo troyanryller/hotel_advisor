@@ -11,4 +11,7 @@
       = f.input :room_description, required: false
       = f.input :room_price, as: :decimal
       = f.input :breakfast, as: :boolean, boolean_style: :inline, required: false
+      / = f.simple_fields_for @rating do |ratings_form|
+      /   = ratings_form.input :rate, collection: Rating::RATING_RANGE, as: :radio_buttons, input_html: {:class => 'radio-inline' }
+      /   = ratings_form.input :comment, as: :string, required: false
       = f.button :submit

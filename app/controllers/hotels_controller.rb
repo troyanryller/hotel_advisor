@@ -12,6 +12,7 @@ class HotelsController < ApplicationController
 
   def new
     @hotel = current_user.hotels.new
+    @rating = @hotel.ratings.new
   end
 
   def edit
@@ -63,6 +64,6 @@ class HotelsController < ApplicationController
     end
 
     def hotel_params
-      params.require(:hotel).permit(:title, :breakfast, :room_description, :room_price, :photo)
+      params.require(:hotel).permit(:title, :breakfast, :room_description, :room_price, :photo, rating: [:rate, :comment])
     end
 end
