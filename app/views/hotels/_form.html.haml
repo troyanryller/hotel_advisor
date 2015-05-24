@@ -9,9 +9,12 @@
               %li= msg
       = f.input :title, as: :string
       = f.input :room_description, required: false
-      = f.input :room_price, as: :decimal
-      = f.input :breakfast, as: :boolean, boolean_style: :inline, required: false
-      / = f.simple_fields_for @rating do |ratings_form|
-      /   = ratings_form.input :rate, collection: Rating::RATING_RANGE, as: :radio_buttons, input_html: {:class => 'radio-inline' }
-      /   = ratings_form.input :comment, as: :string, required: false
+      = f.input :price_decimal, as: :decimal, required: false, label: 'Room price'
+      = f.input :price_currency, collection: Money.currency_codes
+      = f.input :breakfast, as: :boolean, boolean_style: :nested, required: false
+      = f.label 'Address:'
+      .margin-right
+        = f.simple_fields_for :address, (@hotel.address || @hotel.build_address) do |ff|
+          = render :partial => 'hotels/address_fields', locals: {f: ff}
+      = rating_for @hotel, 'general', enable_half: true, half_show: true, disable_after_rate: false
       = f.button :submit

@@ -13,9 +13,12 @@
   %b Room price:
   = @hotel.room_price
 %p
+  %b Rating:
+  = rating_for @hotel, 'general', disable_after_rate: true, imdb_avg: true
+%p
   %b Photo:
   = @hotel.photo
-
-= link_to 'Edit', edit_user_hotel_path(@hotel, user_id: current_user.id)
+- if current_user && current_user.hotels.include?(@hotel)
+  = link_to 'Edit', edit_user_hotel_path(@hotel, user_id: current_user.id)
 \|
 = link_to 'Back', hotels_path

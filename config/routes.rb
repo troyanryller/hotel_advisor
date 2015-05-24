@@ -1,10 +1,14 @@
 Rails.application.routes.draw do
+  root 'hotels#top5'
+  post '/rate' => 'rater#create', :as => 'rate'
   devise_for :users
 
   resources :users do
-    resources :hotels, only: %i(new create edit update destroy)
+    resources :hotels, only: %i(new create edit update destroy) do
+      resources :ratings
+    end
   end
-  resources :hotels, only: %i(index show)
+  resources :hotels, only: %i(index top5 show)
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

@@ -17,6 +17,8 @@ gem 'therubyracer'
 gem 'less-rails'
 gem 'twitter-bootstrap-rails'
 gem 'country_select'
+gem 'ratyrate'
+gem 'money-rails'
 
 group :development, :test do
   gem 'web-console', '~> 2.0'
