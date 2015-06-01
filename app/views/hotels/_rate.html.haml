@@ -1,0 +1,6 @@
+= f.input :rate, as: :hidden, input_html: {value: f.object.rate, id: 'rate'}
+.star
+  - f.object.on_stars.each do |i|
+    .star-on{id: "star_#{i}", data: {rate_number: i}}
+  - f.object.off_stars.each do |i|
+    .star-off{id: "star_#{i}", data: {rate_number: i}}

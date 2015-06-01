@@ -12,8 +12,7 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require jquery.raty
-//= require ratyrate
+//= require rate
 //= require twitter/bootstrap
 //= require turbolinks
 //= require_tree .

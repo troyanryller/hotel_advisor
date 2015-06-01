@@ -14,4 +14,19 @@
  *= require_self
  */
 
- .margin-right { margin-left: 20px; }
+  .margin-left { margin-left: 20px; }
+  .star {
+    background-repeat: no-repeat;
+    .star-on {
+      display: inline-block;
+      background-image: url("star-on.png");
+      height: 16px;
+      width: 16px;
+     }
+    .star-off {
+      display: inline-block;
+      background-image: url("star-off.png");
+      height: 16px;
+      width: 16px;
+     }
+   }

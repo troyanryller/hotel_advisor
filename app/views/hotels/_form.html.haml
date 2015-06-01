@@ -1,4 +1,4 @@
-#form-horizontal
+.hotel-form#form-horizontal
   .col-sm-3
     = simple_form_for [current_user, @hotel], defaults: {input_html: {class: 'form-control'}} do |f|
       - if @hotel.errors.any?
@@ -12,9 +12,12 @@
       = f.input :price_decimal, as: :decimal, required: false, label: 'Room price'
       = f.input :price_currency, collection: Money.currency_codes
       = f.input :breakfast, as: :boolean, boolean_style: :nested, required: false
+      = f.file_field :photo
       = f.label 'Address:'
-      .margin-right
+      .margin-lefts
         = f.simple_fields_for :address, (@hotel.address || @hotel.build_address) do |ff|
-          = render :partial => 'hotels/address_fields', locals: {f: ff}
-      = rating_for @hotel, 'general', enable_half: true, half_show: true, disable_after_rate: false
+          = render partial: 'hotels/address_fields', locals: {f: ff}
+      = f.simple_fields_for :rates, @hotel.on_create_rate do |ff|
+        = ff.input :user_id, as: :hidden, input_html: {value: current_user.id}
+        = render partial: 'hotels/rate', locals: {f: ff}
       = f.button :submit

@@ -11,13 +11,26 @@
   = @hotel.room_description
 %p
   %b Room price:
-  = @hotel.room_price
+  = @hotel.price_humanize
 %p
-  %b Rating:
-  = rating_for @hotel, 'general', disable_after_rate: true, imdb_avg: true
+  %b Comments:
+  - @hotel.rates.where.not(user_id: current_user.try(:id)).each do |rate|
+    %p
+      = rate.comment
+
+- if current_user
+  .user-rate-block
+    %p
+      %b Comment:
+      = simple_form_for @hotel.rates.find_or_initialize_by(user_id: current_user.id), url: hotel_rates_path(hotel_id: @hotel.id) do |f|
+        = render partial: 'hotels/rate', locals: {f: f}
+        = f.input :comment, as: :string, required: false
+        = f.button :submit
+
 %p
   %b Photo:
-  = @hotel.photo
+  = image_tag @hotel.photo, id: 'preview-image', height: '128', width: '128', data: {original_src: @hotel.photo_url }
+
 - if current_user && current_user.hotels.include?(@hotel)
   = link_to 'Edit', edit_user_hotel_path(@hotel, user_id: current_user.id)
 \|

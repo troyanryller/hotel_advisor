@@ -18,8 +18,10 @@
         %td= hotel.title
         %td= hotel.breakfast
         %td= hotel.room_description
-        %td= hotel.room_price
-        %td= hotel.photo
+        %td= hotel.price_humanize
+        - if hotel.photo.url.present?
+          %td= image_tag hotel.photo_url, id: 'preview-image', height: '64', width: '64'
+
         %td= link_to 'Show', hotel
         - if signed_in?
           %td= link_to 'Edit', edit_user_hotel_path(hotel, user_id: current_user.id)
