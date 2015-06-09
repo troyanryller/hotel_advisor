@@ -1,3 +1,20 @@
+# == Schema Information
+#
+# Table name: hotels
+#
+#  id               :integer          not null, primary key
+#  user_id          :integer          not null
+#  title            :string           not null
+#  room_description :text
+#  price_cents      :integer
+#  price_currency   :string           default("USD"), not null
+#  breakfast        :boolean          default(FALSE)
+#  average_rate     :decimal(5, 3)
+#  photo            :string
+#  created_at       :datetime
+#  updated_at       :datetime
+#
+
 class Hotel < ActiveRecord::Base
   mount_uploader :photo, PhotoUploader
   belongs_to :user
@@ -6,7 +23,6 @@ class Hotel < ActiveRecord::Base
 
   has_many :rates, dependent: :destroy, inverse_of: :hotel
   accepts_nested_attributes_for :rates
-  # ratyrate_rateable *%w(general)
 
   validates :title, presence: true
   validates :rates, presence: true

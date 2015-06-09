@@ -13,6 +13,8 @@
 #  updated_at     :datetime         not null
 #
 
-class Address < ActiveRecord::Base
-  belongs_to :hotel
+require 'rails_helper'
+
+RSpec.describe Address, type: :model do
+  it { should belong_to :hotel }
 end

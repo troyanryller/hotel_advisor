@@ -29,14 +29,11 @@ group :development, :test do
   gem 'pry-rails'
   gem 'pry-stack_explorer'
   gem 'pry-byebug'
-end
-
-group :test do
-  # gem 'capybara'
-  # gem 'database_cleaner'
-  # gem 'faker'
-  # gem 'launchy'
-  # gem 'poltergeist'
-  # gem 'selenium-webdriver'
-  # gem 'simplecov', require: false
+  gem 'factory_girl_rails'
+  gem 'rspec-rails'
+  gem 'shoulda-matchers'
+  gem 'capybara'
+  gem 'annotate'
+  gem 'faker'
+  gem 'database_cleaner'
 end

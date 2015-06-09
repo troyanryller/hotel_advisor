@@ -13,6 +13,14 @@
 #  updated_at     :datetime         not null
 #
 
-class Address < ActiveRecord::Base
-  belongs_to :hotel
+FactoryGirl.define do
+  factory :address do
+    address { Faker::Address.street_address }
+    address_ii { Faker::Address.secondary_address }
+    city { Faker::Address.city }
+    state { Faker::Address.state }
+    country_alpha2 { Faker::Address.country_code }
+    hotel
+  end
+
 end

@@ -1,3 +1,16 @@
+# == Schema Information
+#
+# Table name: rates
+#
+#  id         :integer          not null, primary key
+#  user_id    :integer          not null
+#  hotel_id   :integer          not null
+#  rate       :integer          not null
+#  comment    :string
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#
+
 class Rate < ActiveRecord::Base
   MIN_RATE = 0
   MAX_RATE = 4
@@ -5,11 +18,11 @@ class Rate < ActiveRecord::Base
   belongs_to :user
   belongs_to :hotel, inverse_of: :rates
 
-  validates :rate, presence: true, inclusion: { in: 0..4, message: 'Invalid rate!' }
+  validates :rate, inclusion: { in: VOTES_RANGE, message: 'Invalid rate!' }
   validates_existence_of *%i(user hotel), allow_nil: false, allow_new: true
   validates_uniqueness_of :hotel_id, scope: [:user_id]
 
-  before_save :recalculate_hotel_average_rate
+  after_save :recalculate_hotel_average_rate
 
   # Formula from: http://habrahabr.ru/company/darudar/blog/143188/
   def self.average_rate(rating_sum, n, votes_range = VOTES_RANGE)
@@ -31,11 +44,6 @@ class Rate < ActiveRecord::Base
     hotel.update(average_rate: Rate.average_rate(rating_sum, rating_count))
   end
 
-  def rate
-    super || 0
-  end
-
-  # Move into presenter.
   def on_stars
     (MIN_RATE..rate).to_a
   end
@@ -43,4 +51,5 @@ class Rate < ActiveRecord::Base
   def off_stars
     ((rate + 1)..MAX_RATE).to_a
   end
+
 end
